@@ -257,41 +257,6 @@ namespace OLypiadSorting
       quickTime.Text = Convert.ToString(TimerArray[3]);
     }
 
-    private bool IsSorted(int[] array, bool ascending)
-        {
-            if (ascending)
-            {
-                for (int i = 1; i < array.Length; i++)
-                {
-                    if (array[i] < array[i - 1])
-                        return false;
-                }
-            }
-            else
-            {
-                for (int i = 1; i < array.Length; i++)
-                {
-                    if (array[i] > array[i - 1])
-                        return false;
-                }
-            }
-            return true;
-        }
-
-    private static bool IsSortedt(int[] data)
-    {
-      int count = data.Length;
-
-      while (--count >= 1)
-      {
-        if (data[count] < data[count - 1])
-        {
-          return false;
-        }
-      }
-      return true;
-    }
-
     private static void Shuffle(int[] data)
     {
       int temp, rnd;
@@ -306,26 +271,48 @@ namespace OLypiadSorting
       }
     }
 
-    private int[] bogo(int[] data)
-    {
-      while (!IsSortedt(data))
-      {
-        ++IterationArray[4];
-        Shuffle(data);
-      }
-      return data;
-    }
 
-    private void BogoSort(int[] array, bool ascending) //шуточная bogo сортировка
+        private int[] BogoSort(int[] data, bool ascending)
         {
-            Random random = new Random();
-
-            while (!IsSorted(array, ascending))
+            while (!IsSorted(data, ascending))
             {
-              ++IterationArray[4];
-              array = array.OrderBy(x => random.Next()).ToArray();
-            }
+                ++IterationArray[4];
+
+        if (IterationArray[4] > 500000)
+        {
+          MessageBox.Show("Количество итераций превысило 500000", "Внимание");
+          break;
         }
+
+        Shuffle(data);
+            }
+
+            return data;
+        }
+
+        private static bool IsSorted(int[] data, bool ascending)  //шуточная bogo сортировка
+    {
+            int count = data.Length;
+
+            for (int i = 1; i < count; i++)
+            {
+                if (ascending)
+                {
+                    if (data[i] < data[i - 1])
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (data[i] > data[i - 1])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } 
 
     private void BogoSortRealize()
     {
@@ -335,15 +322,18 @@ namespace OLypiadSorting
       TimerArray[4] = 0;
 
       stopwatch.Start();
-      bogo(BogoArray);
+      BogoSort(BogoArray, ascendingKey);
       stopwatch.Stop();
-
 
       TimerArray[4] = stopwatch.ElapsedTicks;
       chart1.Series[4].Points.Clear();
-      for (int index = 0; index < NumberArray.Length; ++index)
+
+      if (IterationArray[4] != 500001)
       {
-        chart1.Series[4].Points.AddXY(index, BogoArray[index]);
+        for (int index = 0; index < NumberArray.Length; ++index)
+        {
+          chart1.Series[4].Points.AddXY(index, BogoArray[index]);
+        }
       }
 
       bogoIterations.Text = Convert.ToString(IterationArray[4]);
@@ -352,6 +342,11 @@ namespace OLypiadSorting
 
     private void RandomGerenation()
     {
+      if (dataGridView1.ColumnCount > 0)
+      {
+        dataGridView1.Columns.Clear();
+      }
+
       int ArraySize = 0;
       int MaxNumber = 1;
       int MinNumber = 0;
@@ -398,57 +393,68 @@ namespace OLypiadSorting
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetAscendingKey();
+
       try
-            {
+      {
         GetArray();
+        if (dataGridView1.ColumnCount <= 0)
+        {
+          MessageBox.Show("Нет данных для обработки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        else
+        {
+          if (BubbleBox.Checked)
+          {
+            GetArray();
+            BubbleSortRealize();
+          }
+          else
+          {
+            bubbleTime.Text = "_______";
+            bubbleIterations.Text = "_______";
+          }
+          if (InsertBox.Checked)
+          {
+            GetArray();
+            InsertionSortRealize();
+          }
+          else
+          {
+            insertTime.Text = "_______";
+            insertIterations.Text = "_______";
+          }
+          if (ShakerBox.Checked)
+          {
+            GetArray();
+            ShakerSortRealize();
+          }
+          else
+          {
+            shakerTime.Text = "_______";
+            shakerIterations.Text = "_______";
+          }
+          if (qickSort.Checked)
+          {
+            GetArray();
+            QuickSortRealize();
+          }
+          else
+          {
+            quickTime.Text = "_______";
+            quickIterations.Text = "_______";
+          }
+          if (BOGOSort.Checked)
+          {
+            GetArray();
+            BogoSortRealize();
+          }
+          else
+          {
+            bogoTime.Text = "_______";
+            bogoIterations.Text = "_______";
+          }
+        }
 
-
-
-        if (BubbleBox.Checked)
-                {
-                    BubbleSortRealize();
-                }
-                else
-                {
-                    bubbleTime.Text = "_______";
-                    bubbleIterations.Text = "_______";
-                }
-                if (InsertBox.Checked)
-                {
-                  InsertionSortRealize();
-                }
-                else
-                {
-                  insertTime.Text = "_______";
-                  insertIterations.Text = "_______";
-                }
-                if (ShakerBox.Checked)
-                {
-                  ShakerSortRealize();
-                }
-                else
-                {
-                  shakerTime.Text = "_______";
-                  shakerIterations.Text = "_______";
-                }
-                if (qickSort.Checked)
-                {
-                  QuickSortRealize();
-                }
-                else
-                {
-                  quickTime.Text = "_______";
-                  quickIterations.Text = "_______";
-                }
-                if (BOGOSort.Checked)
-                {
-                  BogoSortRealize();
-                }
-                else
-                {
-                  bogoTime.Text = "_______";
-                  bogoIterations.Text = "_______";
-                }
             }
             catch
             {
@@ -473,9 +479,6 @@ namespace OLypiadSorting
             quickIterations.Text = "_______";
             bogoTime.Text = "_______";
             bogoIterations.Text = "_______";
-
-      dataGridView1.Columns.Clear();
-
         }
 
         private void chart1_Click(object sender, EventArgs e)
@@ -487,7 +490,12 @@ namespace OLypiadSorting
         {
             try
             {
-                DialogResult res = openFileDialog1.ShowDialog();
+        if (dataGridView1.ColumnCount > 0)
+        {
+          dataGridView1.Columns.Clear();
+        }
+
+        DialogResult res = openFileDialog1.ShowDialog();
                 if (res == DialogResult.OK)
                 {
                     fileName = openFileDialog1.FileName;
@@ -505,6 +513,7 @@ namespace OLypiadSorting
             }
 
       GetArray();
+      GenerateToolStripMenuItem.Enabled = false;
     }
         private void OpenExcelFile(string path)
         {
@@ -567,16 +576,17 @@ namespace OLypiadSorting
 
         private void generateButton_Click(object sender, EventArgs e)
         {
-          RandomGerenation();
+            RandomGerenation();
 
             int m = NumberArray.Length;
+
 
             dataGridView1.ColumnCount = 1; // Установите количество столбцов заранее
 
             for (int i = 0; i < m; ++i)
             {
-                dataGridView1.Rows.Add(); // Добавьте новую строку
-                dataGridView1.Rows[i].Cells[0].Value = NumberArray[i]; // Заполните значение в первом столбце
+              dataGridView1.Rows.Add(); // Добавьте новую строку
+              dataGridView1.Rows[i].Cells[0].Value = NumberArray[i]; // Заполните значение в первом столбце
             }
         }
     }

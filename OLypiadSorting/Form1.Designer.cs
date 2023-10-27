@@ -40,7 +40,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сгенерироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GenerateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.колвоЭлементовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generationCountBox = new System.Windows.Forms.ToolStripTextBox();
             this.минимальноеЗначениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +111,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьToolStripMenuItem,
-            this.сгенерироватьToolStripMenuItem});
+            this.GenerateToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             this.fileToolStripMenuItem.Text = "File";
@@ -120,20 +120,20 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(243, 34);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
             // 
-            // сгенерироватьToolStripMenuItem
+            // GenerateToolStripMenuItem
             // 
-            this.сгенерироватьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GenerateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.колвоЭлементовToolStripMenuItem,
             this.минимальноеЗначениеToolStripMenuItem,
             this.максимальноеЗначениеToolStripMenuItem,
             this.generateButton});
-            this.сгенерироватьToolStripMenuItem.Name = "сгенерироватьToolStripMenuItem";
-            this.сгенерироватьToolStripMenuItem.Size = new System.Drawing.Size(243, 34);
-            this.сгенерироватьToolStripMenuItem.Text = "Сгенерировать ";
+            this.GenerateToolStripMenuItem.Name = "GenerateToolStripMenuItem";
+            this.GenerateToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.GenerateToolStripMenuItem.Text = "Сгенерировать ";
             // 
             // колвоЭлементовToolStripMenuItem
             // 
@@ -539,7 +539,7 @@
         private System.Windows.Forms.Label shakerIterations;
         private System.Windows.Forms.Label insertIterations;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ToolStripMenuItem сгенерироватьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem GenerateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem колвоЭлементовToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox generationCountBox;
         private System.Windows.Forms.ToolStripMenuItem минимальноеЗначениеToolStripMenuItem;
